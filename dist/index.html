@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stunning 3D Solar System | Interactive Space Simulation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/index-DONDqD5F.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-EvObXBZX.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="solar-system-loader">
+                <div class="sun-loader"></div>
+                <div class="planet-loader planet-1"></div>
+                <div class="planet-loader planet-2"></div>
+                <div class="planet-loader planet-3"></div>
+            </div>
+            <h2>Initializing Solar System</h2>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingProgress"></div>
+            </div>
+            <p class="loading-text">Loading celestial bodies...</p>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="app-container" id="appContainer">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🌌</div>
+                    <h1>STELLAR SYSTEM</h1>
+                    <span class="subtitle">Interactive 3D Solar System</span>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">FPS</span>
+                        <span class="stat-value" id="fpsDisplay">60</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Objects</span>
+                        <span class="stat-value" id="objectCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Status</span>
+                        <span class="stat-value status-running" id="systemStatus">RUNNING</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- 3D Canvas Container -->
+            <div class="canvas-container">
+                <canvas id="solarSystemCanvas"></canvas>
+                
+                <!-- Planet Information Tooltip -->
+                <div class="planet-tooltip" id="planetTooltip">
+                    <div class="tooltip-header">
+                        <h3 id="tooltipName"></h3>
+                        <div class="planet-icon" id="tooltipIcon"></div>
+                    </div>
+                    <div class="tooltip-content">
+                        <p id="tooltipDescription"></p>
+                        <div class="planet-stats">
+                            <div class="stat">
+                                <span class="label">Distance from Sun:</span>
+                                <span class="value" id="tooltipDistance"></span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Orbital Period:</span>
+                                <span class="value" id="tooltipPeriod"></span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Diameter:</span>
+                                <span class="value" id="tooltipDiameter"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Camera Controls Overlay -->
+                <div class="camera-controls">
+                    <div class="control-hint">
+                        <div class="hint-item">
+                            <span class="icon">🖱️</span>
+                            <span>Drag to rotate</span>
+                        </div>
+                        <div class="hint-item">
+                            <span class="icon">🔍</span>
+                            <span>Scroll to zoom</span>
+                        </div>
+                        <div class="hint-item">
+                            <span class="icon">📱</span>
+                            <span>Touch to navigate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speed Indicator -->
+                <div class="speed-indicator">
+                    <div class="speed-label">System Speed</div>
+                    <div class="speed-value" id="speedIndicator">1.0x</div>
+                </div>
+            </div>
+
+            <!-- Control Panel -->
+            <aside class="control-panel">
+                <div class="panel-header">
+                    <h2>Mission Control</h2>
+                    <div class="panel-toggle" id="panelToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="panel-content" id="panelContent">
+                    <!-- System Controls -->
+                    <section class="control-section">
+                        <h3>System Controls</h3>
+                        <div class="control-grid">
+                            <button class="control-btn primary" id="pauseBtn">
+                                <span class="btn-icon">⏸️</span>
+                                <span class="btn-text">Pause</span>
+                            </button>
+                            <button class="control-btn secondary" id="resetBtn">
+                                <span class="btn-icon">🔄</span>
+                                <span class="btn-text">Reset</span>
+                            </button>
+                            <button class="control-btn accent" id="themeBtn">
+                                <span class="btn-icon">🌙</span>
+                                <span class="btn-text">Dark Mode</span>
+                            </button>
+                            <button class="control-btn special" id="fullscreenBtn">
+                                <span class="btn-icon">⛶</span>
+                                <span class="btn-text">Fullscreen</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Global Speed Control -->
+                    <section class="control-section">
+                        <h3>Global Speed Control</h3>
+                        <div class="speed-control-container">
+                            <div class="speed-control">
+                                <label for="globalSpeed">Master Speed Multiplier</label>
+                                <div class="slider-container">
+                                    <input type="range" id="globalSpeed" min="0" max="5" step="0.1" value="1" class="speed-slider">
+                                    <div class="slider-track"></div>
+                                    <div class="slider-thumb"></div>
+                                </div>
+                                <div class="speed-display">
+                                    <span id="globalSpeedValue">1.0x</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Planet Controls -->
+                    <section class="control-section">
+                        <h3>Individual Planet Controls</h3>
+                        <div class="planet-controls" id="planetControls">
+                            <!-- Planet controls will be generated dynamically -->
+                        </div>
+                    </section>
+
+                    <!-- Camera Presets -->
+                    <section class="control-section">
+                        <h3>Camera Presets</h3>
+                        <div class="preset-grid">
+                            <button class="preset-btn" data-preset="overview">
+                                <span class="preset-icon">🌍</span>
+                                <span class="preset-name">Overview</span>
+                            </button>
+                            <button class="preset-btn" data-preset="inner">
+                                <span class="preset-icon">🔥</span>
+                                <span class="preset-name">Inner System</span>
+                            </button>
+                            <button class="preset-btn" data-preset="outer">
+                                <span class="preset-icon">❄️</span>
+                                <span class="preset-name">Outer System</span>
+                            </button>
+                            <button class="preset-btn" data-preset="sun">
+                                <span class="preset-icon">☀️</span>
+                                <span class="preset-name">Sun Focus</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Visual Options -->
+                    <section class="control-section">
+                        <h3>Visual Settings</h3>
+                        <div class="visual-controls">
+                            <div class="toggle-control">
+                                <input type="checkbox" id="showOrbits" checked>
+                                <label for="showOrbits">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-label">Orbital Paths</span>
+                                </label>
+                            </div>
+                            <div class="toggle-control">
+                                <input type="checkbox" id="showLabels" checked>
+                                <label for="showLabels">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-label">Planet Labels</span>
+                                </label>
+                            </div>
+                            <div class="toggle-control">
+                                <input type="checkbox" id="showStars" checked>
+                                <label for="showStars">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-label">Background Stars</span>
+                                </label>
+                            </div>
+                            <div class="toggle-control">
+                                <input type="checkbox" id="showTrails" checked>
+                                <label for="showTrails">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-label">Planet Trails</span>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- System Information -->
+                    <section class="control-section">
+                        <h3>System Information</h3>
+                        <div class="system-info">
+                            <div class="info-item">
+                                <span class="info-label">Simulation Time:</span>
+                                <span class="info-value" id="simulationTime">0 days</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Active Planets:</span>
+                                <span class="info-value">8</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Render Quality:</span>
+                                <span class="info-value">Ultra</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Keyboard Shortcuts Help -->
+        <div class="shortcuts-help" id="shortcutsHelp">
+            <div class="shortcuts-content">
+                <h3>Keyboard Shortcuts</h3>
+                <div class="shortcuts-grid">
+                    <div class="shortcut-item">
+                        <kbd>Space</kbd>
+                        <span>Pause/Resume</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>R</kbd>
+                        <span>Reset System</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>T</kbd>
+                        <span>Toggle Theme</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>F</kbd>
+                        <span>Fullscreen</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>H</kbd>
+                        <span>Toggle Help</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>1-4</kbd>
+                        <span>Camera Presets</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

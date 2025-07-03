@@ -1,6 +1,6 @@
 # 🌞 3D Solar System (Three.js)
 
-Welcome to the interactive 3D Solar System! This project is a visually rich, real-time simulation of our solar system, built with [Three.js](https://threejs.org/) and modern web technologies. Perfect for learning, exploring, or just enjoying some cosmic eye-candy.
+Welcome to the interactive 3D Solar System! This project is a visually rich, real-time simulation of our solar system, built with [Three.js](https://threejs.org/) and modern web technologies. Perfect for learning, exploring, or just enjoying some cosmic eye-candy by sreevallabh
 
 ---
 
@@ -53,8 +53,7 @@ npm run build
 
 ---
 
-## 📸 Screenshots
-<!-- Add screenshots here if you like! -->
+
 
 ---
 
@@ -73,7 +72,7 @@ project/
 ---
 
 ## 🙌 Credits & Learning
-- Built by [Your Name] as part of an internship assignment
+- Built by [Sreevallabh] as part of an internship assignment
 - Powered by [Three.js](https://threejs.org/) and [Vite](https://vitejs.dev/)
 - Custom shaders, real-time controls, and a focus on clean, modular code
 
